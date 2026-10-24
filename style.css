@@ -75,6 +75,15 @@ h1 img {
   color: #333;
 }
 
+.achievement {
+  min-height: 24px;
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #159A48;
+}
+
 .game-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -119,6 +128,10 @@ h1 img {
   transform-origin: center; /* Ensure scaling happens from the center */
 }
 
+.penalty-can {
+  filter: sepia(0.7) saturate(1.6) brightness(0.45) contrast(1.1);
+}
+
 @keyframes popUp {
   0% {
     transform: scale(0.5); /* Start scaling from the center */
@@ -129,6 +142,12 @@ h1 img {
 }
 
 
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
 button {
   background-color: #4CAF50;
   color: white;
@@ -137,7 +156,46 @@ button {
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  display: block;
-  margin: 30px auto 0;
+  margin: 30px 0 0;
   transition: background-color 0.2s;
+}
+
+#reset-game {
+  background-color: #2E9DF7;
+}
+
+.water-confetti {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.water-droplet {
+  position: absolute;
+  top: -20px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50% 50% 50% 0;
+  background-color: #2E9DF7;
+  opacity: 0.85;
+  transform: rotate(-45deg);
+  animation: water-fall 2s ease-in forwards;
+}
+
+.water-droplet:nth-child(even) {
+  background-color: #FFC907;
+}
+
+@keyframes water-fall {
+  to {
+    transform: translateY(110vh) rotate(315deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .water-droplet {
+    animation-duration: 0.01ms !important;
+  }
 }
