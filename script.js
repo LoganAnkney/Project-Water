@@ -5,9 +5,9 @@ const GAME_DURATION = 30;
 const PENALTY_CANS_PER_SPAWN = 2;
 const PERFECT_GAME_MESSAGE = 'Amazing! You collected every single one of the 30 jerry cans!';
 const WINNING_MESSAGES = [
-  'You did it! The water is clean!',
-  'Fantastic work! You collected 20 cans!',
-  'Great job! You reached the goal!'
+  'You did it! The water is clean! You collected {count} jerry cans!',
+  'Fantastic work! You collected {count} cans!',
+  'Great job! You reached {count} cans!'
 ];
 const LOSING_MESSAGES = [
   'Time is up! Try again to reach 20 cans.',
@@ -140,9 +140,12 @@ function endGame() {
 
   const isWinner = currentCans >= GOAL_CANS;
   const messages = isWinner ? WINNING_MESSAGES : LOSING_MESSAGES;
+  const selectedMessage = messages[Math.floor(Math.random() * messages.length)];
   const message = isWinner && scoringCansCollected === MAX_SCORING_CANS
     ? PERFECT_GAME_MESSAGE
-    : messages[Math.floor(Math.random() * messages.length)];
+    : isWinner
+      ? selectedMessage.replace('{count}', currentCans)
+      : selectedMessage;
   document.getElementById('achievements').textContent = message;
   if (isWinner) showWaterConfetti();
 }
